@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "commonjs",
+        "target": "esnext",
+        "moduleResolution": "node",
+        "rootDir": "./typings",
+        "outDir": "./public/scripts"
+    }
+}

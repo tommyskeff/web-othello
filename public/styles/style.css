@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    width: 100%;
+    background-color: #66A760;
+    text-align: center;
+    height: 150px;
+}
+
+.header-title, .header-desc {
+    font-family: Exo;
+    color: #FFFFFF;
+}
+
+.header-title {
+    font-size: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.header-desc {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.content {
+    text-align: center;
+}
+
+#board {
+    margin: 50px;
+    box-shadow: 0 0 10px #000;
+}
+
+.github {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 100px;
+}
+
