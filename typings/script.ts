@@ -86,7 +86,11 @@ function setupOptions() {
         value.addEventListener("click", update);    
     }
 
-    reset.addEventListener("click", setupBoard);
+    reset.addEventListener("click", () => {
+        if (confirm("Are you sure you want to reset the board?")) {
+            setupBoard();
+        }
+    });
 }
 
 function setupBoard() {
