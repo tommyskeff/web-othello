@@ -31,12 +31,113 @@
 }
 
 .content {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
 }
 
 #board {
-    margin: 50px;
-    box-shadow: 0 0 10px #000;
+    
+}
+
+.menu {
+    width: 500px;
+    background-color: #66A760;
+    text-align: center;
+    border: 5px solid #000;
+    transform: translateX(-5px);
+    position: relative;
+}
+
+.menu h1 {
+    font-family: Exo;
+    color: #FFFFFF;
+    font-size: 40px;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.option {
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.option a {
+    font-family: Exo;
+    color: #FFFFFF;
+    font-size: 23px;
+}
+
+.switch {
+    position: relative;
+    width: 54px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(23px);
+}
+
+.slider.round {
+    border-radius: 30px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.reset button {
+    background-color: #ccc;
+    border: none;
+    color: white;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-75px);
+    cursor: pointer;
 }
 
 .github {
@@ -45,4 +146,3 @@
     right: 20px;
     height: 100px;
 }
-

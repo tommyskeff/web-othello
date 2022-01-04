@@ -41,42 +41,69 @@ const DIRECTIONS: Coordinate[] = [
     [1, 1]
 ];
 
-const boardSize = BOARD_SIZE * SQUARE_SIZE + (BOARD_SIZE + 1) * PADDING;
-const board: number[][] = [];
-var turn = Tile.BLACK;
+var boardSize = BOARD_SIZE * SQUARE_SIZE + (BOARD_SIZE + 1) * PADDING;
+var board: number[][] = [];
 
+var turn: Tile;
 var canvas: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
+var reset: HTMLButtonElement;
+var options: {
+    legalMoves: HTMLInputElement;
+    boardDecorations: HTMLInputElement;
+};
 
 window.addEventListener("load", load);
 
 function load() {
     canvas = <HTMLCanvasElement>document.getElementById(BOARD_ID);
     ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
+    reset = <HTMLButtonElement>document.getElementById("reset");
 
     canvas.width = boardSize;
     canvas.height = boardSize;
 
     canvas.addEventListener("click", event => handleClick([event.offsetX, event.offsetY]));
 
+    setupOptions();
     setupBoard();
-    update();
+}
+
+function setupOptions() {
+    const getOption = (name: string) => <HTMLInputElement>document.getElementById(name + "-option");
+
+    options = {
+        legalMoves: getOption("legalmoves"),
+        boardDecorations: getOption("boarddecorations")
+    };
+
+    for (const [, value] of Object.entries(options)) {
+        value.addEventListener("click", update);    
+    }
+
+    reset.addEventListener("click", setupBoard);
 }
 
 function setupBoard() {
+    var tempBoard = [];
     for (let i = 0; i < BOARD_SIZE; i++) {
         const column = [];
         for (let j = 0; j < BOARD_SIZE; j++) {
             column.push(Tile.EMPTY);
         }
 
-        board.push(column);
+        tempBoard.push(column);
     }
 
     for (let i = 0; i < STARTING_TILES.length; i++) {
         const starter = STARTING_TILES[i];
-        board[starter.x][starter.y] = starter.tile;
+        tempBoard[starter.x][starter.y] = starter.tile;
     }
+
+    board = tempBoard;
+    turn = Tile.BLACK;
+
+    update();
 }
 
 function handleClick(coordinate: Coordinate) {
@@ -168,7 +195,7 @@ function render() {
             const tile = board[column][row];
             const halfSize = SQUARE_SIZE / 2;
 
-            if (isLegal([column, row])) {
+            if (options.legalMoves.checked && isLegal([column, row])) {
                 ctx.strokeStyle = SHADOW_COLOUR;
                 ctx.lineWidth = SHADOW_WIDTH;
                 ctx.beginPath();
@@ -189,6 +216,10 @@ function render() {
             ctx.arc(x + halfSize, y + halfSize, TILE_SIZE / 2, 0, 2 * Math.PI);
             ctx.fill();
         }
+    }
+
+    if (!options.boardDecorations.checked) {
+        return;
     }
 
     for (let i = 0; i < CIRCLES.length; i++) {
