@@ -5,6 +5,36 @@
     margin: 0;
 }
 
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    position: fixed;
+    left: auto;
+    right: auto;
+    top: 50%;
+    left: 50%;
+    margin-top: -30px;
+    margin-left: -30px;
+}
+
+.main {
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .header {
     width: 100%;
     background-color: #66A760;
@@ -36,9 +66,7 @@
     margin-top: 50px;
 }
 
-#board {
-    
-}
+#board {}
 
 .menu {
     width: 500px;

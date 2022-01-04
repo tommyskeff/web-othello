@@ -67,6 +67,11 @@ function load() {
 
     setupOptions();
     setupBoard();
+
+    setTimeout(() => {
+        (<HTMLElement>document.getElementsByClassName("main")[0]).style.display = "block";
+        (<HTMLElement>document.getElementsByClassName("loader")[0]).style.display = "none";
+    }, 1000);
 }
 
 function setupOptions() {

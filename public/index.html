@@ -9,35 +9,38 @@
 </head>
 
 <body>
+    <div class="loader"></div>
     <div class="header">
         <h1 class="header-title">Web Othello</h1>
         <a class="header-desc">A web-based Othello game for two players, programmed by Tommy Skeffington.</a>
     </div>
-    <div class="content">
-        <canvas id="board"></canvas>
-        <div class="menu">
-            <h1>Menu</h1>
-            <div class="option">
-                <a>Legal moves</a>
-                <label class="switch">
-                    <input type="checkbox" checked="checked" value="true" id="legalmoves-option">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div class="option">
-                <a>Board decorations</a>
-                <label class="switch">
-                    <input type="checkbox" checked="checked" id="boarddecorations-option">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div class="reset">
-                <button id="reset">Reset</button>
+    <div class="main">
+        <div class="content">
+            <canvas id="board"></canvas>
+            <div class="menu">
+                <h1>Menu</h1>
+                <div class="option">
+                    <a>Legal moves</a>
+                    <label class="switch">
+                        <input type="checkbox" checked="checked" value="true" id="legalmoves-option">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="option">
+                    <a>Board decorations</a>
+                    <label class="switch">
+                        <input type="checkbox" checked="checked" id="boarddecorations-option">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="reset">
+                    <button id="reset">Reset</button>
+                </div>
             </div>
         </div>
     </div>
     <a href="https://github.com/tommyskeff/web-othello" target="_blank" rel="noopener noreferrer"><img
-            src="img/github.png" class="github"></a>
+        src="img/github.png" class="github"></a>
 </body>
 
 </html>
