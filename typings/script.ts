@@ -1,5 +1,3 @@
-console.log("Test Passed");
-
 enum Tile {
     WHITE = -1,
     EMPTY = 0,
