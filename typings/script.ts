@@ -87,9 +87,20 @@ function setupOptions() {
     }
 
     reset.addEventListener("click", () => {
-        if (confirm("Are you sure you want to reset the board?")) {
-            setupBoard();
+        if (!confirm("Are you sure you want to reset the board?")) {
+            return;
         }
+
+        (<HTMLElement>document.getElementsByClassName("main")[0]).style.display = "none";
+        (<HTMLElement>document.getElementsByClassName("loader")[0]).style.display = "block";
+        setupBoard();
+
+        setTimeout(() => {
+            (<HTMLElement>document.getElementsByClassName("main")[0]).style.display = "block";
+            (<HTMLElement>document.getElementsByClassName("loader")[0]).style.display = "none";
+        }, 1000);
+
+        
     });
 }
 
