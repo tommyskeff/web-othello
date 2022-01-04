@@ -25,6 +25,18 @@
     display: none;
 }
 
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -64,6 +76,9 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
+    position: relative;
+    animation-name: animatebottom;
+    animation-duration: 1s
 }
 
 #board {}
