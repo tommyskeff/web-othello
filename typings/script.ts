@@ -55,9 +55,9 @@ var stats: {
 window.addEventListener("load", load);
 
 function load() {
-    canvas = <HTMLCanvasElement>document.getElementById(BOARD_ID);
-    ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
-    reset = <HTMLButtonElement>document.getElementById("reset");
+    canvas = document.getElementById(BOARD_ID)as HTMLCanvasElement;
+    ctx = canvas.getContext("2d")as CanvasRenderingContext2D;
+    reset = document.getElementById("reset") as HTMLButtonElement;
 
     canvas.width = boardSize;
     canvas.height = boardSize;
@@ -69,7 +69,6 @@ function load() {
     setupBoard();
 
     (document.getElementsByClassName("content")[0] as HTMLElement).style.display = "flex";
-    // console.log((document.getElementsByClassName("content")[0] as HTMLElement).style)
 }
 
 function setupDirections() {
