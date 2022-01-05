@@ -3,31 +3,14 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Exo;
+    color: #FFFFFF;
+    font-size: 20px;
 }
 
-.loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-    position: fixed;
-    left: auto;
-    right: auto;
-    top: 50%;
-    left: 50%;
-    margin-top: -30px;
-    margin-left: -30px;
-}
-
-.main {
-    display: none;
-}
-
-@keyframes animatebottom {
+@keyframes slidein {
     from {
-        bottom: -100px;
+        bottom: -1D00px;
         opacity: 0
     }
 
@@ -37,64 +20,57 @@
     }
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+body {
+    background-color: #FFFFFF;
+}
 
-    100% {
-        transform: rotate(360deg);
-    }
+.bold-text {
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .header {
     width: 100%;
     background-color: #66A760;
     text-align: center;
-    height: 150px;
-}
-
-.header-title, .header-desc {
-    font-family: Exo;
-    color: #FFFFFF;
 }
 
 .header-title {
     font-size: 60px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 10px;
+    padding-top: 5px;
 }
 
 .header-desc {
-    font-size: 20px;
-    font-weight: normal;
     text-decoration: none;
+    padding: 10px;
+    display: block;
 }
 
 .content {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-bottom: 50px;
+    display: none;
+    animation-name: slidein;
+    animation-duration: 1s;
     position: relative;
-    animation-name: animatebottom;
-    animation-duration: 1s
 }
 
-#board {}
+.play-area {
+    display: flex;
+    justify-content: center;
+}
 
 .menu {
-    width: 500px;
-    background-color: #66A760;
+    width: 515px;
     text-align: center;
     border: 5px solid #000;
-    transform: translateX(-5px);
-    position: relative;
+    background-color: #66A760;
+    border-left: none;
 }
 
 .menu h1 {
-    font-family: Exo;
-    color: #FFFFFF;
     font-size: 40px;
     text-transform: uppercase;
     padding: 10px;
@@ -109,8 +85,6 @@
 }
 
 .option a {
-    font-family: Exo;
-    color: #FFFFFF;
     font-size: 23px;
 }
 
@@ -128,8 +102,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
+    background-color: #FFFFFF;
+    transition: 0.4s;
 }
 
 .slider:before {
@@ -139,20 +113,8 @@
     width: 23px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
-    transition: .4s;
-}
-
-input:checked+.slider {
-    background-color: #2196F3;
-}
-
-input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked+.slider:before {
-    transform: translateX(23px);
+    background-color: #FFFFFF;
+    transition: 0.4s;
 }
 
 .slider.round {
@@ -166,26 +128,68 @@ input:checked+.slider:before {
 .reset button {
     background-color: #ccc;
     border: none;
-    color: white;
     width: 150px;
     height: 50px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
     border-radius: 5px;
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-75px);
     cursor: pointer;
+}
+
+.reset {
+    padding: 10px;
 }
 
 .github {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 0px;
+    text-align: center;
+}
+
+.github-image {
     height: 100px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .play-area {
+        flex-direction: column;
+    }
+
+    .menu {
+        border-left: 5px solid #000;
+        border-top: none;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .content {
+        margin-bottom: 10px;
+    }
+
+    .github {
+        position: static;
+    }
+
+    .github-image {
+        margin-top: 100px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .content {
+        display: none;
+    }
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(23px);
 }

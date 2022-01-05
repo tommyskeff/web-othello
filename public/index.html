@@ -9,16 +9,31 @@
 </head>
 
 <body>
-    <div class="loader"></div>
     <div class="header">
-        <h1 class="header-title">Web Othello</h1>
+        <h1 class="header-title bold-text">Web Othello</h1>
         <a class="header-desc">An open-sourced web based othello game for two players.</a>
     </div>
-    <div class="main">
-        <div class="content">
+    <div class="content">
+        <div class="play-area">
             <canvas id="board"></canvas>
             <div class="menu">
                 <h1>Menu</h1>
+                <div class="option">
+                    <a>Turn</a>
+                    <a id="turn"></a>
+                </div>
+                <div class="option">
+                    <a>Black tiles</a>
+                    <a id="black-tiles"></a>
+                </div>
+                <div class="option">
+                    <a>White tiles</a>
+                    <a id="white-tiles"></a>
+                </div>
+                <div class="option">
+                    <a>Empty tiles</a>
+                    <a id="empty-tiles"></a>
+                </div>
                 <div class="option">
                     <a>Legal moves</a>
                     <label class="switch">
@@ -34,13 +49,15 @@
                     </label>
                 </div>
                 <div class="reset">
-                    <button id="reset">Reset</button>
+                    <button id="reset"><a class="bold-text">Reset</a></button>
                 </div>
+            </div>
+            <div class="github">
+                <a href="https://github.com/tommyskeff/web-othello" target="_blank" rel="noopener noreferrer"><img
+                    src="img/github.png" class="github-image"></a>
             </div>
         </div>
     </div>
-    <a href="https://github.com/tommyskeff/web-othello" target="_blank" rel="noopener noreferrer"><img
-        src="img/github.png" class="github"></a>
 </body>
 
 </html>

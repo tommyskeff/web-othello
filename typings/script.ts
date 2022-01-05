@@ -30,27 +30,26 @@ const STARTING_TILES = [
     { tile: Tile.BLACK, x: 4, y: 3 },
 ];
 
-const DIRECTIONS: Coordinate[] = [
-    [-1, -1], 
-    [-1, 0], 
-    [-1, 1], 
-    [0, -1], 
-    [0, 1], 
-    [1, -1], 
-    [1, 0], 
-    [1, 1]
-];
-
-var boardSize = BOARD_SIZE * SQUARE_SIZE + (BOARD_SIZE + 1) * PADDING;
+var boardSize = BOARD_SIZE * SQUARE_SIZE + BOARD_SIZE * PADDING + PADDING;
 var board: number[][] = [];
+var directions: Coordinate[];
+var playing = false;
 
 var turn: Tile;
 var canvas: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
 var reset: HTMLButtonElement;
+
 var options: {
     legalMoves: HTMLInputElement;
     boardDecorations: HTMLInputElement;
+};
+
+var stats: {
+    turn: HTMLAnchorElement;
+    blackTiles: HTMLAnchorElement;
+    whiteTiles: HTMLAnchorElement;
+    emptyTiles: HTMLAnchorElement;
 };
 
 window.addEventListener("load", load);
@@ -66,39 +65,50 @@ function load() {
     canvas.addEventListener("click", event => handleClick([event.offsetX, event.offsetY]));
 
     setupOptions();
+    setupDirections();
     setupBoard();
 
-    setTimeout(() => {
-        (<HTMLElement>document.getElementsByClassName("main")[0]).style.display = "block";
-        (<HTMLElement>document.getElementsByClassName("loader")[0]).style.display = "none";
-    }, 1000);
+    (document.getElementsByClassName("content")[0] as HTMLElement).style.display = "flex";
+    // console.log((document.getElementsByClassName("content")[0] as HTMLElement).style)
+}
+
+function setupDirections() {
+    directions = [];
+    for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+            if (x == 0 && y == 0) {
+                continue;
+            }
+
+            directions.push([x, y]);
+        }
+    }
 }
 
 function setupOptions() {
     const getOption = (name: string) => <HTMLInputElement>document.getElementById(name + "-option");
+    const getStat = (name: string) => <HTMLAnchorElement>document.getElementById(name);
 
     options = {
         legalMoves: getOption("legalmoves"),
         boardDecorations: getOption("boarddecorations")
     };
 
+    stats = {
+        turn: getStat("turn"),
+        blackTiles: getStat("black-tiles"),
+        whiteTiles: getStat("white-tiles"),
+        emptyTiles: getStat("empty-tiles")
+    }
+
     for (const [, value] of Object.entries(options)) {
-        value.addEventListener("click", update);    
+        value.addEventListener("click", update);
     }
 
     reset.addEventListener("click", () => {
-        if (!confirm("Are you sure you want to reset the board?")) {
-            return;
+        if (confirm("Are you sure you want to reset the board?")) {
+            setupBoard();
         }
-
-        (<HTMLElement>document.getElementsByClassName("main")[0]).style.display = "none";
-        (<HTMLElement>document.getElementsByClassName("loader")[0]).style.display = "block";
-        setupBoard();
-
-        setTimeout(() => {
-            (<HTMLElement>document.getElementsByClassName("main")[0]).style.display = "block";
-            (<HTMLElement>document.getElementsByClassName("loader")[0]).style.display = "none";
-        }, 1000);
     });
 }
 
@@ -120,11 +130,16 @@ function setupBoard() {
 
     board = tempBoard;
     turn = Tile.BLACK;
+    playing = true;
 
     update();
 }
 
 function handleClick(coordinate: Coordinate) {
+    if (!playing) {
+        return;
+    }
+
     const square = toSquare(coordinate);
     if (getTile(square) !== Tile.EMPTY || !isLegal(square)) {
         return;
@@ -134,13 +149,32 @@ function handleClick(coordinate: Coordinate) {
 }
 
 function makeTurn(square: Coordinate) {
-    for (const direction of DIRECTIONS) {
+    for (const direction of directions) {
         for (const coordinate of checkDirection(direction, square)) {
             setTile(coordinate, turn);
         }
     }
 
     turn *= -1;
+    update();
+
+    if (getLegalMoves().length > 0) {
+        return;
+    }
+
+    playing = false;
+    turn *= -1;
+
+    if (getLegalMoves().length > 0) {
+        setTimeout(() => {
+            update();
+            playing = true;
+        }, 1000);
+
+        return;
+    }
+
+    stats.turn.innerHTML = "Game over";
 }
 
 function getTile(coordinate: Coordinate) {
@@ -149,7 +183,6 @@ function getTile(coordinate: Coordinate) {
 
 function setTile(coordinate: Coordinate, tile: Tile) {
     board[coordinate[0]][coordinate[1]] = tile;
-    update();
 }
 
 function toSquare([x, y]: Coordinate): Coordinate {
@@ -157,12 +190,28 @@ function toSquare([x, y]: Coordinate): Coordinate {
     return [square(x), square(y)];
 }
 
+function getLegalMoves() {
+    const moves: Coordinate[] = [];
+    for (let column = 0; column < board.length; column++) {
+        for (let row = 0; row < board[column].length; row++) {
+            const move: Coordinate = [column, row];
+            if (!isLegal(move)) {
+                continue;
+            }
+
+            moves.push(move);
+        }
+    }
+
+    return moves;
+}
+
 function isLegal(coordinate: Coordinate) {
     if (getTile(coordinate) !== Tile.EMPTY) {
         return false;
     }
 
-    return DIRECTIONS.some(d => checkDirection(d, coordinate).length > 0);
+    return directions.some(d => checkDirection(d, coordinate).length > 0);
 }
 
 function checkDirection([increaseX, increaseY]: Coordinate, [originX, originY]: Coordinate): Coordinate[] {
@@ -194,6 +243,18 @@ function checkDirection([increaseX, increaseY]: Coordinate, [originX, originY]: 
 }
 
 function update() {
+    const tiles: Tile[] = [];
+    for (let column = 0; column < board.length; column++) {
+        for (let row = 0; row < board[column].length; row++) {
+            tiles.push(getTile([column, row]));
+        }
+    }
+
+    stats.turn.innerHTML = turn == 1 ? "Black" : "White";
+    stats.blackTiles.innerHTML = tiles.filter(t => t == Tile.BLACK).length.toString();
+    stats.whiteTiles.innerHTML = tiles.filter(t => t == Tile.WHITE).length.toString();
+    stats.emptyTiles.innerHTML = tiles.filter(t => t == Tile.EMPTY).length.toString();
+
     requestAnimationFrame(render);
 }
 
