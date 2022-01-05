@@ -10,7 +10,7 @@
 
 @keyframes slidein {
     from {
-        bottom: -1D00px;
+        bottom: -100px;
         opacity: 0
     }
 
