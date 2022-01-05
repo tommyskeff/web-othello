@@ -8,14 +8,12 @@
     font-size: 20px;
 }
 
-@keyframes slidein {
+@keyframes fade {
     from {
-        bottom: -100px;
         opacity: 0
     }
 
     to {
-        bottom: 0;
         opacity: 1
     }
 }
@@ -52,8 +50,8 @@ body {
     justify-content: center;
     margin-bottom: 50px;
     display: none;
-    animation-name: slidein;
-    animation-duration: 1s;
+    animation-name: fade;
+    animation-duration: 2s;
     position: relative;
 }
 
