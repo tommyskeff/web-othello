@@ -1,3 +1,13 @@
+/******************************************************************************
+**
+** File      script.ts
+** Author    Tommy Skeffington
+** Copyright (c) 2022 Tommy Skeffington
+**
+** This file is part of https://github.com/tommyskeff/web-othello
+**
+******************************************************************************/
+
 enum Tile {
     WHITE = -1,
     EMPTY = 0,
