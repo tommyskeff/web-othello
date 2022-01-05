@@ -50,14 +50,17 @@ body {
     justify-content: center;
     margin-bottom: 50px;
     display: none;
-    animation-name: fade;
-    animation-duration: 2s;
     position: relative;
 }
 
 .play-area {
     display: flex;
     justify-content: center;
+}
+
+#board, .menu {
+    animation-name: fade;
+    animation-duration: 2s;
 }
 
 .menu {
