@@ -37,10 +37,12 @@
 
 .menu {
     width: 515px;
+    height: 515px;
     text-align: center;
     border: 5px solid #000;
     background-color: #66A760;
     border-left: none;
+    position: relative;
 }
 
 .menu h1 {
@@ -111,6 +113,9 @@
 
 .reset {
     padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 75px);
 }
 
 .github {
