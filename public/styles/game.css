@@ -1,13 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
-
-* {
-    padding: 0;
-    margin: 0;
-    font-family: Exo;
-    color: #FFFFFF;
-    font-size: 20px;
-}
-
 @keyframes fade {
     from {
         opacity: 0
@@ -18,49 +8,21 @@
     }
 }
 
-body {
-    background-color: #FFFFFF;
-}
-
-.bold-text {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.header {
-    width: 100%;
-    background-color: #66A760;
-    text-align: center;
-}
-
-.header-title {
-    font-size: 60px;
-    padding-top: 5px;
-}
-
-.header-desc {
-    text-decoration: none;
-    padding: 10px;
-    display: block;
+#board, .menu {
+    animation-name: fade;
+    animation-duration: 2s;
 }
 
 .content {
     margin-top: 50px;
-    display: flex;
-    justify-content: center;
     margin-bottom: 50px;
     display: none;
     position: relative;
 }
 
-.play-area {
+.content, .play-area {
     display: flex;
     justify-content: center;
-}
-
-#board, .menu {
-    animation-name: fade;
-    animation-duration: 2s;
 }
 
 .menu {
