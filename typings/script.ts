@@ -36,6 +36,7 @@ var directions: Coordinate[];
 var playing = false;
 
 var turn: Tile;
+var move: number;
 var canvas: HTMLCanvasElement;
 var ctx: CanvasRenderingContext2D;
 var reset: HTMLButtonElement;
@@ -47,6 +48,7 @@ var options: {
 
 var stats: {
     turn: HTMLAnchorElement;
+    move: HTMLAnchorElement;
     blackTiles: HTMLAnchorElement;
     whiteTiles: HTMLAnchorElement;
     emptyTiles: HTMLAnchorElement;
@@ -95,6 +97,7 @@ function setupOptions() {
 
     stats = {
         turn: getStat("turn"),
+        move: getStat("move"),
         blackTiles: getStat("black-tiles"),
         whiteTiles: getStat("white-tiles"),
         emptyTiles: getStat("empty-tiles")
@@ -130,6 +133,7 @@ function setupBoard() {
     board = tempBoard;
     turn = Tile.BLACK;
     playing = true;
+    move = 2;
 
     update();
 }
@@ -155,6 +159,7 @@ function makeTurn(square: Coordinate) {
     }
 
     turn *= -1;
+    move++;
     update();
 
     if (getLegalMoves().length > 0) {
@@ -163,6 +168,7 @@ function makeTurn(square: Coordinate) {
 
     playing = false;
     turn *= -1;
+    move++;
 
     if (getLegalMoves().length > 0) {
         setTimeout(() => {
@@ -250,6 +256,7 @@ function update() {
     }
 
     stats.turn.innerHTML = turn == 1 ? "Black" : "White";
+    stats.move.innerHTML = Math.floor(move / 2).toString();
     stats.blackTiles.innerHTML = tiles.filter(t => t == Tile.BLACK).length.toString();
     stats.whiteTiles.innerHTML = tiles.filter(t => t == Tile.WHITE).length.toString();
     stats.emptyTiles.innerHTML = tiles.filter(t => t == Tile.EMPTY).length.toString();
